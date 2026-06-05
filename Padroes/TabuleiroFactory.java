@@ -1,7 +1,8 @@
-package Padrões;
+package Padroes;
 
 import Mapas.ModoDificil;
 import Mapas.ModoFacil;
+import Mapas.Tabuleiro;
 
 public class TabuleiroFactory {
 

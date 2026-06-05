@@ -1,6 +1,6 @@
 package Mapas;
 
-import java.util.Random; // sortear números aleatórios.
+import java.util.Random;
 
 public class ModoFacil implements Tabuleiro {
 

@@ -1,4 +1,6 @@
-package Padrões;
+package Padroes;
+
+import Mapas.Tabuleiro;
 
 import java.util.Scanner;
 
@@ -19,7 +21,7 @@ public class GameManager {
     }
 
     public void iniciar() {
-        System.out.println("Escolha a dificuldade facil ou dificil(relaxa não tem nada aqui!): ");
+        System.out.println("Escolha a dificuldade facil ou dificil: ");
         String escolha = teclado.nextLine();
 
         TabuleiroFactory fabrica = new TabuleiroFactory();
@@ -39,24 +41,38 @@ public class GameManager {
         while (jogando) {
             mapa.imprimir();
 
-            System.out.println("\nDigite a LINHA (0 a " + (mapa.getTamanho() - 1) + "): ");
-            int linha = Integer.parseInt(teclado.nextLine());
+            int linha = -1;
+            int coluna = -1;
 
-            System.out.println("Digite a COLUNA (0 a " + (mapa.getTamanho() - 1) + "): ");
-            int coluna = Integer.parseInt(teclado.nextLine());
+            try {
+                System.out.println("\nDigite a LINHA (0 a " + (mapa.getTamanho() - 1) + "): ");
+                linha = Integer.parseInt(teclado.nextLine());
+
+                System.out.println("Digite a COLUNA (0 a " + (mapa.getTamanho() - 1) + "): ");
+                coluna = Integer.parseInt(teclado.nextLine());
+
+            } catch (NumberFormatException e) {
+                System.out.println("\n Você precisa digitar alguma coisa...");
+                continue;
+            }
+
+            if (linha < 0 || linha >= mapa.getTamanho() || coluna < 0 || coluna >= mapa.getTamanho()) {
+                System.out.println("\n ... Só vai de 0 a " + (mapa.getTamanho() - 1) + ". Tenta de novo.");
+                continue;
+            }
 
             boolean explodiu = mapa.revelar(linha, coluna);
 
             if (explodiu) {
                 mapa.imprimir();
-                System.out.println("\nBOOM! Não sobrou nada!");
+                System.out.println("\n BOOM! It's over, não sobrou nada.");
                 jogando = false;
             } else if (mapa.verificarVitoria()) {
                 mapa.imprimir();
-                System.out.println("\n🎉Acabou, não tem nada aqui exatamente como me prometeram");
+                System.out.println("\n PARABÉNS! Você revelou todos os espaços seguros!");
                 jogando = false;
             } else {
-                System.out.println("\nAqui não tem nada.");
+                System.out.println("\n Aqui não tem nada, vamos continuar....");
             }
         }
     }

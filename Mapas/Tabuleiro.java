@@ -1,3 +1,4 @@
+package Mapas;
 public interface Tabuleiro {
     void montar();
     void imprimir();
